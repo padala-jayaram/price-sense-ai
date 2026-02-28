@@ -38,6 +38,9 @@ The verdict is always one of **GO**, **CAUTION**, or **DECLINE**, with explicit 
 | Validation | Pydantic 2.9 |
 | Product matching | RapidFuzz 3.13 (fuzzy string matching) |
 | LLM providers | Groq (llama-3.3-70b), Google Gemini 2.0 Flash, AWS Bedrock (Claude) |
+| ORM | SQLAlchemy 2.0 |
+| Migrations | Alembic |
+| Database driver | psycopg2-binary |
 
 ### Frontend
 | Component | Technology |
@@ -46,13 +49,13 @@ The verdict is always one of **GO**, **CAUTION**, or **DECLINE**, with explicit 
 | Markdown rendering | React Markdown 10.1 |
 | API proxy | Vite dev server → localhost:8000 |
 
-### Data
-| File | Contents |
+### Database (PostgreSQL)
+| Table | Contents |
 |---|---|
-| `products.json` | 24 SKUs — name, price, margin, weekly volume, category |
-| `promo_history.json` | Historical promotions with lift, ROI, and outcomes |
-| `elasticity.json` | Price elasticity by category, seasonality, optimal discount ranges |
-| `cannibalization.json` | Cross-product impact matrices |
+| `products` | 24 SKUs — name, price, margin, weekly volume, category |
+| `promo_history` | Historical promotions with lift, ROI, and outcomes |
+| `elasticity` | Price elasticity by category, seasonality, optimal discount ranges |
+| `cannibalization` | Cross-product impact rows (52 sibling relationships) |
 
 ---
 
@@ -62,20 +65,23 @@ The verdict is always one of **GO**, **CAUTION**, or **DECLINE**, with explicit 
 price-sense-ai/
 ├── backend/
 │   ├── main.py                   # FastAPI app, CORS setup
+│   ├── models.py                 # SQLAlchemy ORM models (4 tables)
 │   ├── requirements.txt
+│   ├── alembic.ini               # Alembic config
+│   ├── alembic/
+│   │   ├── env.py
+│   │   └── versions/
+│   │       ├── 001_create_tables.py
+│   │       └── 002_seed_data.py
 │   ├── routers/
 │   │   └── analyze.py            # /api/analyze, /api/chat, /api/products
-│   ├── services/
-│   │   ├── ai_engine.py          # Multi-provider LLM abstraction
-│   │   ├── context_assembler.py  # Builds ~400-token focused context
-│   │   ├── context_retriever.py  # Fetches product, promo, elasticity data
-│   │   ├── data_loader.py        # Loads and caches JSON data on startup
-│   │   └── query_parser.py       # RapidFuzz matching, message parsing
-│   └── data/
-│       ├── products.json
-│       ├── promo_history.json
-│       ├── elasticity.json
-│       └── cannibalization.json
+│   └── services/
+│       ├── ai_engine.py          # Multi-provider LLM abstraction
+│       ├── context_assembler.py  # Builds ~400-token focused context
+│       ├── context_retriever.py  # Fetches product, promo, elasticity data
+│       ├── database.py           # SQLAlchemy engine + session factory
+│       ├── data_loader.py        # Loads data from PostgreSQL (or JSON fallback)
+│       └── query_parser.py       # RapidFuzz matching, message parsing
 └── frontend/
     ├── package.json
     ├── vite.config.js
@@ -126,9 +132,9 @@ price-sense-ai/
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌────────────────────────────────────────────────────┐  │
-│  │            IN-MEMORY DATA STORE                    │  │
-│  │  products.json | promo_history.json                │  │
-│  │  elasticity.json | cannibalization.json            │  │
+│  │            POSTGRESQL (Render)                     │  │
+│  │  products | promo_history                          │  │
+│  │  elasticity | cannibalization                      │  │
 │  └────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────┘
 ```
@@ -211,10 +217,10 @@ Implementing RAG for this data size would add complexity without benefit. RAG be
 
 #### Key Scaling Decisions
 
-| Component | Prototype | Production |
+| Component | Current | Production |
 |---|---|---|
-| Product data | JSON (24 SKUs) | PostgreSQL (100K+ SKUs) |
-| Promo history | JSON records | PostgreSQL (millions) + time-series indexing |
+| Product data | PostgreSQL (24 SKUs) | PostgreSQL (100K+ SKUs) |
+| Promo history | PostgreSQL records | PostgreSQL (millions) + time-series indexing |
 | Elasticity | Static per-category | ML model per-SKU, retrained weekly |
 | Product matching | RapidFuzz string matching | SQL full-text search + vector similarity |
 | Unstructured data | None | RAG with Pinecone/pgvector for analyst notes, market research |
@@ -294,7 +300,8 @@ Conversational follow-up on an existing analysis.
 
 - Python 3.13+
 - Node.js 20+
-- A `backend/.env` file (see [Configuration](#configuration))
+- PostgreSQL database (or use the Render-hosted instance)
+- A `.env` file at the repo root (see [Configuration](#configuration))
 
 ### Backend Setup
 
@@ -303,6 +310,10 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+
+# Run database migrations (creates tables + seeds data — first time only)
+alembic upgrade head
+
 uvicorn main:app --reload --port 8000
 ```
 
@@ -320,15 +331,18 @@ The Vite dev server proxies `/api/*` requests to `http://localhost:8000`.
 
 ## Configuration
 
-Create a `backend/.env` file with the following keys:
+Create a `.env` file at the repo root with the following keys:
 
 | Key | Description |
 |---|---|
+| `DATABASE_URL` | PostgreSQL connection string (`postgresql://user:pass@host/db`) |
 | `LLM_PROVIDER` | Which LLM to use: `groq`, `google`, or `bedrock` |
 | `GROQ_API_KEY` | API key from [console.groq.com](https://console.groq.com) |
 | `GEMINI_API_KEY` | API key from [aistudio.google.com](https://aistudio.google.com) |
 | `AWS_PROFILE` | AWS profile name (for Bedrock) |
 | `AWS_REGION` | AWS region (for Bedrock, e.g. `us-east-1`) |
+
+If `DATABASE_URL` is not set, the app falls back to local JSON files in `backend/data/` (useful for quick local dev without a database).
 
 ### LLM Providers
 
