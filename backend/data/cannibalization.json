@@ -1,0 +1,192 @@
+{
+  "cannibalization_map": {
+    "GRC-OL1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-HN1", "impact_pct": 5, "relationship": "pantry_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "GRC-RS1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-PS1", "impact_pct": 18, "relationship": "grain_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "GRC-CN1", "impact_pct": 4, "relationship": "meal_component"}
+      ]
+    },
+    "GRC-PS1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-RS1", "impact_pct": 15, "relationship": "grain_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "GRC-CN1", "impact_pct": 5, "relationship": "meal_component"}
+      ]
+    },
+    "GRC-HN1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-OL1", "impact_pct": 3, "relationship": "pantry_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SPF-NB1", "impact_pct": 5, "relationship": "spread_substitute"}
+      ]
+    },
+    "GRC-FL1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-PS1", "impact_pct": 6, "relationship": "baking_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "GRC-CN1": {
+      "primary_siblings": [
+        {"sku_id": "GRC-PS1", "impact_pct": 8, "relationship": "meal_component"},
+        {"sku_id": "GRC-RS1", "impact_pct": 5, "relationship": "meal_component"}
+      ],
+      "secondary_affected": []
+    },
+    "SPF-CH1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-SM1", "impact_pct": 10, "relationship": "charcuterie_substitute"},
+        {"sku_id": "SPF-GR1", "impact_pct": 8, "relationship": "board_pairing"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SNK-CR1", "impact_pct": 4, "relationship": "pairing_lift"}
+      ]
+    },
+    "SPF-SM1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-CH1", "impact_pct": 8, "relationship": "charcuterie_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "SPF-DK1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-NB1", "impact_pct": 12, "relationship": "treat_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SNK-GR1", "impact_pct": 5, "relationship": "snack_substitute"}
+      ]
+    },
+    "SPF-TR1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-GR1", "impact_pct": 6, "relationship": "condiment_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "SPF-GR1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-CH1", "impact_pct": 8, "relationship": "board_pairing"},
+        {"sku_id": "SPF-TR1", "impact_pct": 5, "relationship": "condiment_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "SPF-NB1": {
+      "primary_siblings": [
+        {"sku_id": "SPF-DK1", "impact_pct": 10, "relationship": "treat_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "GRC-HN1", "impact_pct": 6, "relationship": "spread_substitute"}
+      ]
+    },
+    "BEV-CF1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-GT1", "impact_pct": 18, "relationship": "hot_drink_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "BEV-KM1", "impact_pct": 6, "relationship": "caffeine_substitute"}
+      ]
+    },
+    "BEV-GT1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-CF1", "impact_pct": 15, "relationship": "hot_drink_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "BEV-KM1", "impact_pct": 5, "relationship": "health_drink_substitute"}
+      ]
+    },
+    "BEV-OJ1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-LM1", "impact_pct": 14, "relationship": "citrus_substitute"},
+        {"sku_id": "BEV-SM1", "impact_pct": 10, "relationship": "cold_drink_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "BEV-KM1", "impact_pct": 6, "relationship": "cold_drink_substitute"}
+      ]
+    },
+    "BEV-KM1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-OJ1", "impact_pct": 10, "relationship": "cold_drink_substitute"},
+        {"sku_id": "BEV-SM1", "impact_pct": 8, "relationship": "health_drink_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "BEV-GT1", "impact_pct": 4, "relationship": "health_drink_substitute"}
+      ]
+    },
+    "BEV-SM1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-OJ1", "impact_pct": 12, "relationship": "cold_drink_substitute"},
+        {"sku_id": "BEV-KM1", "impact_pct": 8, "relationship": "health_drink_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "BEV-LM1": {
+      "primary_siblings": [
+        {"sku_id": "BEV-OJ1", "impact_pct": 12, "relationship": "citrus_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "BEV-KM1", "impact_pct": 5, "relationship": "cold_drink_substitute"}
+      ]
+    },
+    "SNK-PC1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-PP1", "impact_pct": 20, "relationship": "salty_snack_substitute"},
+        {"sku_id": "SNK-PR1", "impact_pct": 15, "relationship": "salty_snack_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SNK-CR1", "impact_pct": 6, "relationship": "crunchy_substitute"}
+      ]
+    },
+    "SNK-PP1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-PC1", "impact_pct": 18, "relationship": "salty_snack_substitute"},
+        {"sku_id": "SNK-PR1", "impact_pct": 10, "relationship": "salty_snack_substitute"}
+      ],
+      "secondary_affected": []
+    },
+    "SNK-PR1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-PC1", "impact_pct": 14, "relationship": "salty_snack_substitute"},
+        {"sku_id": "SNK-PP1", "impact_pct": 10, "relationship": "salty_snack_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SNK-CR1", "impact_pct": 5, "relationship": "crunchy_substitute"}
+      ]
+    },
+    "SNK-NT1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-GR1", "impact_pct": 12, "relationship": "healthy_snack_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SPF-NB1", "impact_pct": 5, "relationship": "nut_product_substitute"},
+        {"sku_id": "SNK-PC1", "impact_pct": 4, "relationship": "snack_substitute"}
+      ]
+    },
+    "SNK-GR1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-NT1", "impact_pct": 10, "relationship": "healthy_snack_substitute"},
+        {"sku_id": "SNK-CR1", "impact_pct": 6, "relationship": "light_snack_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SPF-DK1", "impact_pct": 4, "relationship": "treat_substitute"}
+      ]
+    },
+    "SNK-CR1": {
+      "primary_siblings": [
+        {"sku_id": "SNK-PR1", "impact_pct": 10, "relationship": "crunchy_substitute"},
+        {"sku_id": "SNK-GR1", "impact_pct": 5, "relationship": "light_snack_substitute"}
+      ],
+      "secondary_affected": [
+        {"sku_id": "SPF-CH1", "impact_pct": 4, "relationship": "pairing_lift"}
+      ]
+    }
+  }
+}

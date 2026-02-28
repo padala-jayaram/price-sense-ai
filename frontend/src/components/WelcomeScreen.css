@@ -1,0 +1,63 @@
+.welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.welcome-top {
+  width: 80%;
+  padding: 12px 0 0;
+  flex-shrink: 0;
+}
+
+.welcome-top .input-controls {
+  width: 100%;
+}
+
+.greeting {
+  text-align: center;
+  color: var(--text-sec);
+  font-size: 0.95rem;
+  padding: 12px 0 0 0;
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.welcome-middle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.scenario-row {
+  display: flex;
+  gap: 10px;
+  padding: 0 24px 10px;
+  width: 80%;
+  flex-shrink: 0;
+}
+
+.scenario-card {
+  flex: 1;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 0.84rem;
+  cursor: pointer;
+  text-align: center;
+  min-height: 40px;
+}
+.scenario-card:hover:not(:disabled) {
+  background: var(--hover);
+}
+.scenario-card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

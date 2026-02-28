@@ -1,0 +1,26 @@
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.3s ease;
+  background-color: var(--bg);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main.expanded {
+  margin-left: 0;
+}
+
+.chat-input-wrap {
+  width: 80%;
+  margin: 0 auto;
+  flex-shrink: 0;
+}

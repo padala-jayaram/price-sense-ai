@@ -1,0 +1,188 @@
+.analysis-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Verdict Banners */
+.verdict-go, .verdict-caution, .verdict-decline {
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-left: 5px solid;
+}
+.verdict-go      { background: var(--vgo-bg); }
+.verdict-caution { background: var(--vcau-bg); }
+.verdict-decline { background: var(--vdec-bg); }
+
+.verdict-go h3, .verdict-caution h3, .verdict-decline h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+.verdict-go p, .verdict-caution p, .verdict-decline p {
+  margin: 4px 0 0 0;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* Metric Cards Row */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.metric-card {
+  background: var(--card-bg);
+  padding: 10px 8px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Expandable Sections */
+.expandable {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.expandable-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+.expandable-header:hover {
+  background: var(--hover);
+}
+
+.expandable-arrow {
+  font-size: 0.85rem;
+  color: var(--text-sec);
+}
+
+.expandable-body {
+  padding: 12px 14px;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Breakdown Grid */
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.breakdown-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bd-label {
+  font-size: 0.75rem;
+  color: var(--text-sec);
+  text-transform: uppercase;
+}
+.bd-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Risk list */
+.risk-list {
+  margin: 6px 0 6px 18px;
+}
+.risk-list li {
+  color: var(--text);
+  font-size: 0.88rem;
+  margin-bottom: 2px;
+}
+
+/* Alt suggestion */
+.alt-suggestion {
+  padding: 8px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #10B981;
+  color: var(--text);
+}
+
+/* Reasoning */
+.reasoning {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Debug Info Circle */
+.debug-info {
+  display: flex;
+  justify-content: flex-end;
+}
+.debug-info > summary {
+  list-style: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--text-sec);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.debug-info > summary::-webkit-details-marker { display: none; }
+.debug-info > summary:hover { background: var(--hover); }
+
+.debug-panel {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.debug-title {
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-sec);
+  display: block;
+  margin-bottom: 4px;
+}
