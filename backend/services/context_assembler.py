@@ -90,17 +90,24 @@ Avg Weekly Units: {target['avg_weekly_units']}"""
 
     # Section 6: Elasticity
     if elasticity:
+        seasonality = elasticity.get("seasonality_index", {}) or {}
+    
+        q1 = seasonality.get("Q1", "N/A")
+        q2 = seasonality.get("Q2", "N/A")
+        q3 = seasonality.get("Q3", "N/A")
+        q4 = seasonality.get("Q4", "N/A")
+    
+        min_disc = elasticity.get("optimal_discount_min_pct", "N/A")
+        max_disc = elasticity.get("optimal_discount_max_pct", "N/A")
+    
         sections.append(
-            f"== PRICE ELASTICITY ({elasticity['category']}) ==\n"
-            f"Price Elasticity: {elasticity['price_elasticity']}\n"
-            f"Within-Category Cross-Elasticity: {elasticity['cross_elasticity_within_category']}\n"
-            f"Adjacent-Category Cross-Elasticity: {elasticity['cross_elasticity_adjacent_categories']}\n"
-            f"Seasonality: Q1={elasticity['seasonality_index']['Q1']}, "
-            f"Q2={elasticity['seasonality_index']['Q2']}, "
-            f"Q3={elasticity['seasonality_index']['Q3']}, "
-            f"Q4={elasticity['seasonality_index']['Q4']}\n"
-            f"Optimal Discount Range: {elasticity['optimal_discount_range_pct'][0]}%-{elasticity['optimal_discount_range_pct'][1]}%\n"
-            f"Notes: {elasticity['notes']}"
+            f"== PRICE ELASTICITY ({elasticity.get('category', 'N/A')}) ==\n"
+            f"Price Elasticity: {elasticity.get('price_elasticity', 'N/A')}\n"
+            f"Within-Category Cross-Elasticity: {elasticity.get('cross_elasticity_within_category', 'N/A')}\n"
+            f"Adjacent-Category Cross-Elasticity: {elasticity.get('cross_elasticity_adjacent_categories', 'N/A')}\n"
+            f"Seasonality: Q1={q1}, Q2={q2}, Q3={q3}, Q4={q4}\n"
+            f"Optimal Discount Range: {min_disc}-{max_disc}%\n"
+            f"Notes: {elasticity.get('notes', 'N/A')}"
         )
 
     return "\n\n".join(sections)
