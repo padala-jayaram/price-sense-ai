@@ -5,6 +5,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import analyze
 from services import data_loader
+from services.database import engine
+from models import Base
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -17,6 +20,8 @@ logger = logging.getLogger("price_sense_ai")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     data_loader.init()
+     # ✅ Create tables first
+    Base.metadata.create_all(bind=engine)
     logger.info("Data loaded: products, promo_history, elasticity, cannibalization")
     yield
 
